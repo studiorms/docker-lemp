@@ -1,9 +1,8 @@
-FROM phpdockerio/php:8.2-fpm
+FROM php:7.3-fpm
 WORKDIR "/application"
 
-RUN apt-get update; \
-    apt-get -y --no-install-recommends install \
-    php8.2-mysql \
-    php8.2-xdebug; \
-    apt-get clean; \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions && \
+    install-php-extensions xdebug
